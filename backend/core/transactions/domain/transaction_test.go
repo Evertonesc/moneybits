@@ -119,7 +119,6 @@ func TestTransaction_ValidTransactionType(t *testing.T) {
 }
 
 func TestTransaction_ParseMonthYearIndexYearIndex(t *testing.T) {
-	// comment test
 	type fields struct {
 		ID             uint64
 		PlannerID      int
