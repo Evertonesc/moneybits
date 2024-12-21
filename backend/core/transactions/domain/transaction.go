@@ -18,7 +18,7 @@ type Transaction struct {
 	Amount         int64
 	Description    string
 	Notes          string
-	Attachments    string // create a type
+	Attachments    string // (files) create a type
 	Category       string
 	MonthYearIndex string
 	Type           string
