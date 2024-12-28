@@ -1,122 +1,12 @@
 package domain
 
 import (
+	"reflect"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
 )
-
-func TestTransaction_ValidTransactionType(t *testing.T) {
-	type fields struct {
-		ID             uint64
-		PlannerID      int
-		Amount         int64
-		Description    string
-		Notes          string
-		Attachments    string
-		Category       string
-		MonthYearIndex string
-		Type           string
-		CreatedAt      time.Time
-		UpdatedAt      time.Time
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		want   bool
-	}{
-		{
-			name: "valid - income transaction type",
-			fields: fields{
-				ID:             1,
-				Type:           Income,
-				Amount:         1000,
-				Description:    "Salary",
-				Category:       "Income",
-				MonthYearIndex: "January",
-			},
-			want: true,
-		},
-		{
-			name: "valid - outcome transaction type",
-			fields: fields{
-				ID:             2,
-				Type:           Outcome,
-				Amount:         500,
-				Description:    "Groceries",
-				Category:       "Food",
-				MonthYearIndex: "January",
-			},
-			want: true,
-		},
-		{
-			name: "invalid - empty transaction type",
-			fields: fields{
-				ID:             3,
-				Type:           "",
-				Amount:         100,
-				Description:    "Invalid type",
-				MonthYearIndex: "January",
-			},
-			want: false,
-		},
-		{
-			name: "invalid - wrong transaction type",
-			fields: fields{
-				ID:             4,
-				Type:           "INVALID_TYPE",
-				Amount:         100,
-				Description:    "Wrong type",
-				MonthYearIndex: "January",
-			},
-			want: false,
-		},
-		{
-			name: "invalid - lowercase income type",
-			fields: fields{
-				ID:             5,
-				Type:           "income",
-				Amount:         100,
-				Description:    "Wrong case",
-				MonthYearIndex: "January",
-			},
-			want: false,
-		},
-		{
-			name: "invalid - lowercase outcome type",
-			fields: fields{
-				ID:             6,
-				Type:           "outcome",
-				Amount:         100,
-				Description:    "Wrong case",
-				MonthYearIndex: "January",
-			},
-			want: false,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tr := &Transaction{
-				ID:             tt.fields.ID,
-				PlannerID:      tt.fields.PlannerID,
-				Amount:         tt.fields.Amount,
-				Description:    tt.fields.Description,
-				Notes:          tt.fields.Notes,
-				Attachments:    tt.fields.Attachments,
-				Category:       tt.fields.Category,
-				MonthYearIndex: tt.fields.MonthYearIndex,
-				Type:           tt.fields.Type,
-				CreatedAt:      tt.fields.CreatedAt,
-				UpdatedAt:      tt.fields.UpdatedAt,
-			}
-			if got := tr.ValidTransactionType(); got != tt.want {
-				t.Errorf("Transaction.ValidTransactionType() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
 func TestTransaction_ParseMonthYearIndexYearIndex(t *testing.T) {
 	type fields struct {
@@ -262,6 +152,141 @@ func TestTransaction_ParseMonthYearIndexYearIndex(t *testing.T) {
 
 			if !assert.EqualValues(t, tt.wantMonthYearIndex, tr.MonthYearIndex) {
 				t.Errorf("month year index mismatch = %s, want %s", tr.MonthYearIndex, tt.wantMonthYearIndex)
+			}
+		})
+	}
+}
+
+func TestNewTransaction(t *testing.T) {
+	// now := time.Date(2024, time.January, 1, 0, 0, 0, 0, time.UTC)
+
+	type args struct {
+		amount          int64
+		description     string
+		notes           string
+		category        string
+		transactionType string
+		now             time.Time
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *Transaction
+		wantErr bool
+	}{
+		{
+			name: "valid data - income transaction type",
+			args: args{
+				amount:          1000,
+				description:     "Salary",
+				notes:           "",
+				category:        "Income",
+				transactionType: Income,
+				now:             time.Date(2024, time.January, 15, 0, 0, 0, 0, time.UTC),
+			},
+			want: &Transaction{
+				Amount:         1000,
+				Description:    "Salary",
+				Notes:          "",
+				Category:       "Income",
+				Type:           Income,
+				MonthYearIndex: "Jan-24",
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid data - outcome transaction type",
+			args: args{
+				amount:          500,
+				description:     "Groceries",
+				notes:           "",
+				category:        "Food",
+				transactionType: Outcome,
+				now:             time.Date(2024, time.February, 15, 0, 0, 0, 0, time.UTC),
+			},
+			want: &Transaction{
+				Amount:         500,
+				Description:    "Groceries",
+				Notes:          "",
+				Category:       "Food",
+				Type:           Outcome,
+				MonthYearIndex: "Feb-24",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid - empty transaction type",
+			args: args{
+				amount:          100,
+				description:     "Invalid type",
+				notes:           "",
+				category:        "",
+				transactionType: "",
+				now:             time.Date(2024, time.March, 15, 0, 0, 0, 0, time.UTC),
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name: "invalid - wrong transaction type",
+			args: args{
+				amount:          100,
+				description:     "Wrong type",
+				notes:           "",
+				category:        "",
+				transactionType: "INVALID_TYPE",
+				now:             time.Date(2024, time.March, 15, 0, 0, 0, 0, time.UTC),
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name: "invalid - lowercase income type",
+			args: args{
+				amount:          100,
+				description:     "Wrong case",
+				notes:           "",
+				category:        "",
+				transactionType: "income",
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name: "invalid - lowercase outcome type",
+			args: args{
+				amount:          100,
+				description:     "Wrong case",
+				notes:           "",
+				category:        "",
+				transactionType: "outcome",
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name: "invalid - empty current datetime",
+			args: args{
+				amount:          100,
+				description:     "Wrong type",
+				notes:           "",
+				category:        "",
+				transactionType: "INVALID_TYPE",
+				now:             time.Time{},
+			},
+			want:    nil,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := NewTransaction(tt.args.amount, tt.args.description, tt.args.notes, tt.args.category, tt.args.transactionType, tt.args.now)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NewTransaction() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewTransaction() = %v, want %v", got, tt.want)
 			}
 		})
 	}

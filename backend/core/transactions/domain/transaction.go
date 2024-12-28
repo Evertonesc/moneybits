@@ -2,6 +2,7 @@ package domain
 
 import (
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -26,6 +27,24 @@ type Transaction struct {
 	UpdatedAt      time.Time
 }
 
+func NewTransaction(amount int64, description, notes, category, transactionType string, now time.Time) (*Transaction, error) {
+	transaction := &Transaction{
+		Amount:      amount,
+		Description: description,
+		Notes:       notes,
+		Category:    category,
+		Type:        transactionType,
+	}
+
+	if !transaction.validTransactionType() {
+		return nil, fmt.Errorf("%s is not a valid transaction type", transactionType)
+	}
+
+	transaction.ParseMonthYearIndex(now)
+
+	return transaction, nil
+}
+
 func (t *Transaction) ParseMonthYearIndex(now time.Time) error {
 	if now.IsZero() {
 		return errors.New("failed to parse month-year index: the provided date is invalid")
@@ -36,6 +55,6 @@ func (t *Transaction) ParseMonthYearIndex(now time.Time) error {
 	return nil
 }
 
-func (t *Transaction) ValidTransactionType() bool {
+func (t *Transaction) validTransactionType() bool {
 	return t.Type == Income || t.Type == Outcome
 }
