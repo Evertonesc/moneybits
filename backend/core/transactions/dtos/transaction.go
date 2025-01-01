@@ -6,26 +6,26 @@ import (
 )
 
 type CreateTransactionRequest struct {
-	Amount      int64
-	Description string
-	Notes       string
-	Attachments string // type for files
-	Category    string
-	Type        string
+	Amount      int64  `json:"amount,omitempty"`
+	Description string `json:"description,omitempty"`
+	Notes       string `json:"notes,omitempty"`
+	Attachments string `json:"attachments,omitempty"` // type for files
+	Category    string `json:"category,omitempty"`
+	Type        string `json:"type,omitempty"`
 }
 
 type CreateTransactionResponse struct {
-	ID             uint64
-	PlannerID      int
-	Amount         int64
-	Description    string
-	Notes          string
-	Attachments    string // (files) create a type
-	Category       string
-	MonthYearIndex string
-	Type           string
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
+	ID             uint64    `json:"id,omitempty"`
+	PlannerID      int       `json:"planner_id,omitempty"`
+	Amount         int64     `json:"amount,omitempty"`
+	Description    string    `json:"description,omitempty"`
+	Notes          string    `json:"notes,omitempty"`
+	Attachments    string    `json:"attachments,omitempty"` // (files) create a type
+	Category       string    `json:"category,omitempty"`
+	MonthYearIndex string    `json:"month_year_index,omitempty"`
+	Type           string    `json:"type,omitempty"`
+	CreatedAt      time.Time `json:"created_at,omitempty"`
+	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 }
 
 func NewCreateTXResponseFromDomain(createdTransaction *domain.Transaction) CreateTransactionResponse {
