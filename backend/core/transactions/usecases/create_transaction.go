@@ -21,8 +21,6 @@ func NewCreateTransactionUseCase(r TransactionRepository) *CreateTransactionUseC
 	}
 }
 
-// TODO: We must be within a valid planner (be one or another) to link the transaction to it
-
 func (uc *CreateTransactionUseCase) Execute(ctx context.Context, createTransactionReq dtos.CreateTransactionRequest) (dtos.CreateTransactionResponse, error) {
 	now := time.Now()
 

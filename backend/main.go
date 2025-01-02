@@ -1,9 +1,9 @@
 package main
 
-import (
-	"fmt"
-)
+import "moneybits/core"
 
 func main() {
-	fmt.Println("hello world")
+	app := core.NewAppContainer()
+
+	app.StartHTTPServer()
 }
