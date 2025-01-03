@@ -150,10 +150,10 @@
  #Env files
  .env
 
- *.DS_Store
+**/.DS_Store
 
  # VSCode
 **/.vscode/*
 
 # Air configuration
-**/backend/.air.toml
+**/.air.toml
