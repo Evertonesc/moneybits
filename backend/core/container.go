@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"moneybits/core/transactions"
+	"moneybits/drivers/envs"
 	"moneybits/drivers/rest"
 	"net/http"
 
@@ -27,14 +28,17 @@ type Module interface {
 type AppContainer struct {
 	HTTPServer *echo.Echo
 	Modules    []Module
+	EnvConfig  envs.Config
 }
 
 func NewAppContainer() *AppContainer {
+	envs.Envs()
 	echoServer := rest.NewHTTPServer()
 
 	app := &AppContainer{
 		HTTPServer: echoServer,
 		Modules:    make([]Module, 0),
+		EnvConfig:  envs.EnvConfig,
 	}
 
 	app.bootstrap()
@@ -62,7 +66,7 @@ func (app *AppContainer) modulesRegistry() {
 }
 
 func (app *AppContainer) StartHTTPServer() {
-	err := app.HTTPServer.Start(fmt.Sprintf(":%s", "8080"))
+	err := app.HTTPServer.Start(fmt.Sprintf(":%s", app.EnvConfig.HTTPServerPort))
 	if err == http.ErrServerClosed {
 		log.Fatalf("http server closed: %s", err.Error())
 	}

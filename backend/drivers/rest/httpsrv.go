@@ -1,18 +1,13 @@
 package rest
 
 import (
+	"moneybits/drivers/envs"
 	"net/http"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"golang.org/x/time/rate"
-)
-
-const (
-	// TODO: put this value in a env variable
-	HTTPServerTimeout = 30 * time.Second
-	corsMaxAge        = 300 // 5 min in secs
 )
 
 func NewHTTPServer() *echo.Echo {
@@ -34,7 +29,7 @@ func corsSettings() middleware.CORSConfig {
 		// TODO: change the origins persmission after the first version
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
-		MaxAge:       corsMaxAge,
+		MaxAge:       envs.EnvConfig.CorsMaxAge,
 	}
 }
 
@@ -42,7 +37,7 @@ func timeoutSettings() middleware.TimeoutConfig {
 	return middleware.TimeoutConfig{
 		Skipper:      middleware.DefaultSkipper,
 		ErrorMessage: "Request timeout: The server took too long to respond. Please try again in a few minutes",
-		Timeout:      HTTPServerTimeout,
+		Timeout:      envs.EnvConfig.HTTPServerTimeout,
 	}
 }
 

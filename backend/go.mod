@@ -3,6 +3,7 @@ module moneybits
 go 1.22.1
 
 require (
+	github.com/caarlos0/env/v11 v11.3.1
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/time v0.8.0
