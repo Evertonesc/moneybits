@@ -135,7 +135,6 @@ func TestTransaction_ParseMonthYearIndexYearIndex(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			tr := &Transaction{
 				ID:             tt.fields.ID,
-				PlannerID:      tt.fields.PlannerID,
 				Amount:         tt.fields.Amount,
 				Description:    tt.fields.Description,
 				Notes:          tt.fields.Notes,

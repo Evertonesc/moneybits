@@ -16,7 +16,6 @@ type CreateTransactionRequest struct {
 
 type CreateTransactionResponse struct {
 	ID             uint64    `json:"id,omitempty"`
-	PlannerID      int       `json:"planner_id,omitempty"`
 	Amount         int64     `json:"amount,omitempty"`
 	Description    string    `json:"description,omitempty"`
 	Notes          string    `json:"notes,omitempty"`
@@ -31,7 +30,6 @@ type CreateTransactionResponse struct {
 func NewCreateTXResponseFromDomain(createdTransaction *domain.Transaction) CreateTransactionResponse {
 	return CreateTransactionResponse{
 		ID:             createdTransaction.ID,
-		PlannerID:      createdTransaction.PlannerID,
 		Amount:         createdTransaction.Amount,
 		Description:    createdTransaction.Description,
 		Notes:          createdTransaction.Notes,

@@ -15,7 +15,6 @@ const (
 
 type Transaction struct {
 	ID             uint64
-	PlannerID      int
 	Amount         int64
 	Description    string
 	Notes          string
