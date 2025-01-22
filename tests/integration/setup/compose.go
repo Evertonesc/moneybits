@@ -24,7 +24,6 @@ var (
 	// strategiesMap receive the service name defined in the docker-compose file with
 	// its strategy of initialization
 	strategiesMap = map[string]wait.Strategy{
-
 		"postgres": wait.ForLog("database system is ready to accept connections").WithOccurrence(2).WithStartupTimeout(1 * time.Minute),
 	}
 )
