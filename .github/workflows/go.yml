@@ -50,28 +50,28 @@ jobs:
     - name: Unit Tests
       run: go test -v ./...
 
-  # integration-tests: 
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
+  integration-tests: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
-  #   - uses: actions/cache@v4
-  #     with:
-  #         path: |
-  #           ~/.cache/go-build
-  #           ~/go/pkg/mod # module cache
-  #         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-go-
+    - uses: actions/cache@v4
+      with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod # module cache
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-  #   - name: Set up Go
-  #     uses: actions/setup-go@v4
-  #     with:
-  #       go-version: '1.23'
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
 
-  #   - name: Pull Dependencies
-  #     run: docker compose pull 
+    - name: Build
+      run: go build -v ./...
 
-  #   - name: Run Integration Tests
-  #     run: go test -v -p=1 -tags=integration ./tests/integration/...
+    - name: Run Integration Tests
+      run: go test -v -p=1 -tags=integration ./tests/integration/...
 
