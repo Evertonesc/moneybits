@@ -15,6 +15,7 @@ import (
 	"github.com/compose-spec/compose-go/v2/dotenv"
 	tc "github.com/testcontainers/testcontainers-go/modules/compose"
 	"github.com/testcontainers/testcontainers-go/wait"
+	"golang.org/x/net/websocket"
 )
 
 var (
@@ -30,6 +31,7 @@ var (
 
 func ComposeUp(ctx context.Context, t *testing.T) error {
 	os.Setenv("TESTCONTAINERS_RYUK_DISABLED", "true")
+	websocket.NewClient(&websocket.Config{}, nil)
 
 	rootDir := dirs.RootProjectDir()
 
