@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/compose-spec/compose-go/v2/dotenv"
+	"github.com/samber/lo"
 	tc "github.com/testcontainers/testcontainers-go/modules/compose"
 	"github.com/testcontainers/testcontainers-go/wait"
 )
@@ -30,6 +31,8 @@ var (
 
 func ComposeUp(ctx context.Context, t *testing.T) error {
 	os.Setenv("TESTCONTAINERS_RYUK_DISABLED", "true")
+
+	lo.Uniq([]string{"Test", "Flamengo"})
 
 	rootDir := dirs.RootProjectDir()
 
