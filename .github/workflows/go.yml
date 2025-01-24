@@ -58,9 +58,7 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod # module cache
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.mod', '**/go.sum') }}
 
     - name: Set up Go
       uses: actions/setup-go@v4
