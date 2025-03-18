@@ -72,6 +72,8 @@ func (app *AppContainer) StartHTTPServer() {
 	}
 }
 
+// HTTPRouter provides the application HTTP router to all
+// components that need it.
 func (app *AppContainer) HTTPRouter() *echo.Router {
 	return app.HTTPServer.Router()
 }
