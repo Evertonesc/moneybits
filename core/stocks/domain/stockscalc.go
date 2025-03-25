@@ -12,6 +12,10 @@ type TargetShares struct {
 	SharesCount          int64
 }
 
+type TargetSharesReport struct {
+	TargetShares TargetShares
+}
+
 // CalcSharesTarget calculates the number of shares needed to reach the desired anual income.
 // The calculation is based on a desired anual income.
 //

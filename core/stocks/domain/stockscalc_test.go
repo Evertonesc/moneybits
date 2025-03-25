@@ -58,6 +58,27 @@ func TestCalcSharesTarget(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "should return the disired target shares for BBAS3",
+			args: args{
+				ticker: "BBAS3",
+				dividendsPaid: []int64{
+					260,
+					227,
+					207,
+					113,
+				},
+				desiredIncome: 18000,
+			},
+			want: TargetShares{
+				Ticker:               "BBAS3",
+				SharesCount:          int64(895),
+				DesiredAnualIncome:   18000,
+				AverageDividendsPaid: 201,
+				YearsInCalculation:   4,
+			},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
