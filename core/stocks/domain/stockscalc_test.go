@@ -7,6 +7,7 @@ import (
 
 func TestCalcSharesTarget(t *testing.T) {
 	type args struct {
+		ticker        string
 		dividendsPaid []int64
 		desiredIncome int64
 	}
@@ -35,18 +36,32 @@ func TestCalcSharesTarget(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "should return the disired target shares",
+			name: "should return the disired target shares for TAEE4",
 			args: args{
-				dividendsPaid: []int64{},
-				desiredIncome: 1000,
+				ticker: "TAEE4",
+				dividendsPaid: []int64{
+					118,
+					97,
+					162,
+					150,
+					107,
+					63,
+				},
+				desiredIncome: 18000,
 			},
-			want:    TargetShares{},
-			wantErr: true,
+			want: TargetShares{
+				Ticker:               "TAEE4",
+				SharesCount:          int64(1551),
+				DesiredAnualIncome:   18000,
+				AverageDividendsPaid: 116,
+				YearsInCalculation:   6,
+			},
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := CalcSharesTarget(tt.args.dividendsPaid, tt.args.desiredIncome)
+			got, err := CalcSharesTarget(tt.args.ticker, tt.args.dividendsPaid, tt.args.desiredIncome)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CalcSharesTarget() error = %v, wantErr %v", err, tt.wantErr)
 				return

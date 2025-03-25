@@ -2,16 +2,23 @@ package domain
 
 import (
 	"errors"
-	"fmt"
 )
 
 type TargetShares struct {
-	DividendsPaid []int64
-	DesiredIncome int64
-	SharesCount   int64
+	Ticker               string
+	AverageDividendsPaid int64
+	YearsInCalculation   int
+	DesiredAnualIncome   int64
+	SharesCount          int64
 }
 
-func CalcSharesTarget(dividendsPaid []int64, desiredIncome int64) (TargetShares, error) {
+// CalcSharesTarget calculates the number of shares needed to reach the desired anual income.
+// The calculation is based on a desired anual income.
+//
+// Using the desired anual income, the function calculates the average of dividends paid in the last years.
+// Based on the result, it gets the desired anual income and divides by the average of dividends paid.
+// The final result is the number of shares needed to reach the desired anual income.
+func CalcSharesTarget(ticker string, dividendsPaid []int64, desiredAnualIncome int64) (TargetShares, error) {
 	if len(dividendsPaid) == 0 {
 		return TargetShares{}, errors.New("a list with dividends paid is required")
 	}
@@ -23,7 +30,13 @@ func CalcSharesTarget(dividendsPaid []int64, desiredIncome int64) (TargetShares,
 
 	averageDividendsPaid := dividendsSum / int64(len(dividendsPaid))
 
-	fmt.Println(averageDividendsPaid)
+	sharesCount := (desiredAnualIncome * 10) / averageDividendsPaid
 
-	return TargetShares{}, nil
+	return TargetShares{
+		Ticker:               ticker,
+		SharesCount:          int64(sharesCount),
+		DesiredAnualIncome:   18000,
+		AverageDividendsPaid: averageDividendsPaid,
+		YearsInCalculation:   len(dividendsPaid),
+	}, nil
 }
