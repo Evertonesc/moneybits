@@ -34,12 +34,12 @@ func CalcSharesTarget(ticker string, dividendsPaid []int64, desiredAnualIncome i
 
 	averageDividendsPaid := dividendsSum / int64(len(dividendsPaid))
 
-	sharesCount := (desiredAnualIncome * 10) / averageDividendsPaid
+	sharesCount := desiredAnualIncome / averageDividendsPaid
 
 	return TargetShares{
 		Ticker:               ticker,
 		SharesCount:          int64(sharesCount),
-		DesiredAnualIncome:   18000,
+		DesiredAnualIncome:   desiredAnualIncome,
 		AverageDividendsPaid: averageDividendsPaid,
 		YearsInCalculation:   len(dividendsPaid),
 	}, nil
