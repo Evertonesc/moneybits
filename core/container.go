@@ -11,7 +11,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Module represents a self-contained feature of the application
+// Module represents a self-contained feature of the application.
+// A module provides APIs and use cases to the outer layer and also manages its own dependencies
 type Module interface {
 	// Name returns the module identifier
 	Name() string
