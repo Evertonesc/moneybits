@@ -17,7 +17,6 @@ type TargetSharesReport struct {
 }
 
 // CalcSharesTarget calculates the number of shares needed to reach the desired anual income.
-// The calculation is based on a desired anual income.
 //
 // Using the desired anual income, the function calculates the average of dividends paid in the last years.
 // Based on the result, it gets the desired anual income and divides by the average of dividends paid.
