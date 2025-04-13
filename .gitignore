@@ -157,3 +157,7 @@
 
 # Air configuration
 **/.air.toml
+
+## Envs
+## TODO: remove it after setup mountebank
+.env.integration
