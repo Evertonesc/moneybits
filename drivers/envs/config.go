@@ -13,11 +13,12 @@ type Config struct {
 	HTTPServerPort    string        `env:"HTTP_SERVER_PORT"`
 	CorsMaxAge        int           `env:"CORS_MAX_AGE"`
 	HTTPServerTimeout time.Duration `env:"HTTP_SERVER_TIMEOUT"`
-
-	PostgresHost     string `env:"POSTGRES_HOST"`
-	PostgresUser     string `env:"POSTGRES_USER"`
-	PostgresPassword string `env:"POSTGRES_PASSWORD"`
-	PostgresDB       string `env:"POSTGRES_DB"`
+	PostgresHost      string        `env:"POSTGRES_HOST"`
+	PostgresUser      string        `env:"POSTGRES_USER"`
+	PostgresPassword  string        `env:"POSTGRES_PASSWORD"`
+	PostgresDB        string        `env:"POSTGRES_DB"`
+	BrapiURL          string        `env:"BRAPI_URL"`
+	BrapiToken        string        `env:"BRAPI_TOKEN"`
 }
 
 var (
