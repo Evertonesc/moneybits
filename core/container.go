@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"log"
+	"moneybits/core/stocks"
 	"moneybits/core/transactions"
 	"moneybits/drivers/envs"
 	"moneybits/drivers/rest"
@@ -61,6 +62,7 @@ func (app *AppContainer) bootstrap() {
 func (app *AppContainer) modulesRegistry() {
 	modulesList := []Module{
 		transactions.NewTransactionModule(app),
+		stocks.NewSocksModule(app),
 	}
 
 	app.Modules = modulesList
