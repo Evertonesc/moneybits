@@ -64,7 +64,7 @@ func walkDirs(dir string) ([]json.RawMessage, error) {
 			content, err := os.ReadFile(path)
 			if err != nil {
 				fmt.Printf("Error reading file %s: %v\n", path, err)
-				return err // continue with next file
+				return err
 			}
 
 			stubs = append(stubs, json.RawMessage(content))
