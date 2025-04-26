@@ -4,8 +4,6 @@
 name: Go
 
 on:
-  push:
-    branches: [ "**" ]
   pull_request:
     branches: [ "**" ]
 
@@ -22,8 +20,10 @@ jobs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.mod', '**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - name: Build
-      run: go build -v ./...
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -32,20 +32,17 @@ jobs:
 
     - uses: actions/cache@v4
       with:
-        path: |
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.mod', '**/go.sum') }}
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod # module cache
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.mod', '**/go.sum') }}
 
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.23'
 
-    - name: Build
-      run: go build -v ./...
-
-    - name: Unit Tests
+    - name: Run Unit Tests
       run: go test -v ./...
 
   integration-tests: 
@@ -64,9 +61,6 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.23'
-
-    - name: Build
-      run: go build -v ./...
 
     - name: Run Integration Tests
       run: go test -v -p=1 -tags=integration ./tests/integration/...

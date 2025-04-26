@@ -160,4 +160,4 @@
 
 ## Envs
 ## TODO: remove it after setup mountebank
-.env.integration
+.env.local
