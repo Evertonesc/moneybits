@@ -25,7 +25,7 @@ const (
 func TestCreateTransactionsAPI(t *testing.T) {
 	ctx := context.Background()
 
-	setup.ComposeUp(ctx, t)
+	setup.ComposeUp(ctx)
 	defer setup.ComposeDown(ctx)
 
 	db, err := containers.PostgresDB(ctx)

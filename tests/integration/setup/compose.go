@@ -9,7 +9,6 @@ import (
 	"moneybits/tests/integration/setup/dirs"
 	"os"
 	"path/filepath"
-	"testing"
 	"time"
 
 	"github.com/compose-spec/compose-go/v2/dotenv"
@@ -28,19 +27,19 @@ var (
 	}
 )
 
-func ComposeUp(ctx context.Context, t *testing.T) error {
+func ComposeUp(ctx context.Context) error {
 	os.Setenv("TESTCONTAINERS_RYUK_DISABLED", "true")
 
 	rootDir := dirs.RootProjectDir()
 
-	err := dotenv.Load(filepath.Join(rootDir, ".env.local"))
+	err := dotenv.Load(filepath.Join(rootDir, ".env.integration"))
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
 
 	composePath, err := dockerComposeFilePath()
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
 
 	compose, err := tc.NewDockerComposeWith(
@@ -57,7 +56,7 @@ func ComposeUp(ctx context.Context, t *testing.T) error {
 
 	err = compose.Up(ctx, tc.Wait(true))
 	if err != nil {
-		t.Fatalf("failed to start compose stack: %v", err)
+		log.Fatalf("failed to start compose stack: %v", err)
 	}
 
 	ComposeTestStack = compose
