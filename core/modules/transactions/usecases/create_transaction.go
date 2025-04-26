@@ -2,8 +2,8 @@ package usecases
 
 import (
 	"context"
-	"moneybits/core/transactions/domain"
-	"moneybits/core/transactions/dtos"
+	"moneybits/core/modules/transactions/domain"
+	"moneybits/core/modules/transactions/dtos"
 	"time"
 )
 

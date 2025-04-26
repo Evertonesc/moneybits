@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	"moneybits/core/transactions/dtos"
+	"moneybits/core/modules/transactions/dtos"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
