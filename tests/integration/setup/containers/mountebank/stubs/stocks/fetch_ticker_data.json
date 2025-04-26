@@ -1,0 +1,76 @@
+{
+  "predicates": [
+    {
+      "equals": {
+        "method": "GET",
+        "path": "/quote/BBAS3"
+      }
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "results": [
+            {
+              "currency": "BRL",
+              "marketCap": 158868723692,
+              "shortName": "BRASIL      ON      NM",
+              "longName": "Banco do Brasil S.A.",
+              "regularMarketChange": 0.31,
+              "regularMarketChangePercent": 1.119,
+              "regularMarketTime": "2025-04-25T20:07:50.000Z",
+              "regularMarketPrice": 28.01,
+              "regularMarketDayHigh": 28.12,
+              "regularMarketDayRange": "27.52 - 28.12",
+              "regularMarketDayLow": 27.52,
+              "regularMarketVolume": 17870000,
+              "regularMarketPreviousClose": 27.7,
+              "regularMarketOpen": 27.65,
+              "fiftyTwoWeekRange": "23.68 - 29.63",
+              "fiftyTwoWeekLow": 23.68,
+              "fiftyTwoWeekHigh": 29.63,
+              "symbol": "BBAS3",
+              "summaryProfile": {
+                "symbol": "BBAS3",
+                "address1": "EdifIcio Banco do Brasil",
+                "address2": "Quadra 5, Lote B Setor de Autarquias Norte Federal District",
+                "address3": null,
+                "city": "Brasília",
+                "state": "DF",
+                "zip": null,
+                "country": "Brazil",
+                "phone": "55 80 0729 5285",
+                "fax": null,
+                "website": "https://www.bb.com.br",
+                "industry": "Banks - Regional",
+                "industryKey": "banks-regional",
+                "industryDisp": "Banks - Regional",
+                "sector": "Financial Services",
+                "sectorKey": "financial-services",
+                "sectorDisp": "Financial Services",
+                "longBusinessSummary": "Banco do Brasil S.A., together with its subsidiaries, provides banking products and services for individuals, companies, and public sectors in Brazil and internationally. The company operates through Banking, Investments, Fund Management, Insurance, Electronic Payments, and Other segments. The Banking segment offers various products and services, including deposits, loans, and other services to retail, wholesale, and public sector markets, as well as to micro-entrepreneurs. The Investments segment engages in the domestic capital markets, intermediation and distribution of debts and equity instruments in primary and secondary capital markets; and provision of financial services. The Fund Management segment engages in the purchase, sale, and custody of securities, as well as the management of portfolios, and investment funds and clubs. The Insurance segment provides life, property, and automobile insurance products, as well as private pension and capitalization plans. The Electronic Payments segment is involved in the capturing, transmission, processing, and financial settlement for electronic payment transactions. The Other segment engages in the provision of credit recovery and consortium management services; development, manufacturing, sale, rental, and integration of digital electronic systems, peripherals, programs, inputs, and computing supplies. Banco do Brasil S.A. was incorporated in 1808 and is headquartered in Brasília, Brazil.",
+                "fullTimeEmployees": 85953,
+                "companyOfficers": [],
+                "twitter": null,
+                "name": null,
+                "startDate": null,
+                "description": null,
+                "updatedAt": "2024-01-23 22:02:23.060877+00"
+              },
+              "priceEarnings": 8.741128128502053,
+              "earningsPerShare": 3.2124005,
+              "logourl": "https://icons.brapi.dev/icons/BBAS3.svg"
+            }
+          ],
+          "requestedAt": "2025-04-26T18:50:06.064Z",
+          "took": "0ms"
+        }
+      }
+    }
+  ]
+}

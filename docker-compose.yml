@@ -10,3 +10,14 @@ services:
       - "5432:5432"
     volumes:
       - ./tests/integration/setup/migrations/moneybits_db.sql:/docker-entrypoint-initdb.d/moneybits_db.sql
+  mountebank:
+    build:
+      context: ./tests/integration/setup/containers/mountebank
+      dockerfile: Dockerfile
+    container_name: mountebank
+    ports:
+      - "2525:2525"
+      - "8090:8090"
+    volumes:
+      - ./tests/integration/setup/containers/mountebank/stubs:/app/stubs
+      - ./tests/integration/setup/containers/mountebank/mountebank_merge_stubs.go:/app/mountebank_merge_stubs.go
