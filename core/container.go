@@ -3,8 +3,8 @@ package core
 import (
 	"fmt"
 	"log"
-	"moneybits/core/stocks"
-	"moneybits/core/transactions"
+	"moneybits/core/modules/stocks"
+	"moneybits/core/modules/transactions"
 	"moneybits/drivers/envs"
 	"moneybits/drivers/rest"
 	"net/http"

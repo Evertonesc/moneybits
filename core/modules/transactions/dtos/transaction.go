@@ -1,7 +1,7 @@
 package dtos
 
 import (
-	"moneybits/core/transactions/domain"
+	"moneybits/core/modules/transactions/domain"
 	"time"
 )
 

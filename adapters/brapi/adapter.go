@@ -3,6 +3,7 @@ package brapi
 import (
 	"context"
 	"fmt"
+	"moneybits/core/modules/stocks/domain"
 	"moneybits/drivers/envs"
 	"moneybits/drivers/rest"
 )
@@ -21,8 +22,8 @@ func NewBrapiAdapter() *BrapiAdapter {
 	}
 }
 
-func (ba *BrapiAdapter) FetchTickerQuote(ctx context.Context, ticker string) (TickerQuoteResponse, error) {
-	url := fmt.Sprintf("/quote/%s", ticker)
+func (ba *BrapiAdapter) FetchTickerQuote(ctx context.Context, ticker domain.Ticker) (*TickerQuoteResponse, error) {
+	url := fmt.Sprintf("/quote/%s", ticker.Code)
 
 	headers := map[string]string{
 		rest.AuthorizationHeader: envs.EnvConfig.BrapiToken,
@@ -31,8 +32,8 @@ func (ba *BrapiAdapter) FetchTickerQuote(ctx context.Context, ticker string) (Ti
 	var tickerQuoteResponse TickerQuoteResponse
 	err := ba.bi.Get(ctx, url, headers, nil, &tickerQuoteResponse)
 	if err != nil {
-		return TickerQuoteResponse{}, err
+		return nil, err
 	}
 
-	return tickerQuoteResponse, nil
+	return &tickerQuoteResponse, nil
 }

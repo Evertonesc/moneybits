@@ -2,8 +2,8 @@ package stocks
 
 import (
 	"moneybits/adapters/brapi"
-	"moneybits/core/stocks/api"
-	"moneybits/core/stocks/usecases"
+	"moneybits/core/modules/stocks/api"
+	"moneybits/core/modules/stocks/usecases"
 
 	"github.com/labstack/echo/v4"
 )

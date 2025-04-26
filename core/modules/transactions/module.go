@@ -1,7 +1,7 @@
 package transactions
 
 import (
-	"moneybits/core/transactions/api"
+	"moneybits/core/modules/transactions/api"
 
 	"github.com/labstack/echo/v4"
 )
