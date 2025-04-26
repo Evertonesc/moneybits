@@ -7,7 +7,12 @@ const (
 )
 
 type Ticker struct {
-	Code string
+	Symbol             string
+	ShorName           string
+	LongName           string
+	Currency           string
+	RegularMarketPrice float64
+	EarningsPerShare   float64
 }
 
 func NewTicker(ticker string) (Ticker, error) {
@@ -20,6 +25,6 @@ func NewTicker(ticker string) (Ticker, error) {
 	}
 
 	return Ticker{
-		Code: ticker,
+		Symbol: ticker,
 	}, nil
 }

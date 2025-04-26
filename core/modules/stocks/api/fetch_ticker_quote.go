@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	"moneybits/adapters/brapi"
+	"moneybits/core/modules/stocks/api/dtos"
 	"moneybits/core/modules/stocks/domain"
 	"net/http"
 
@@ -10,7 +10,7 @@ import (
 )
 
 type FetchTickerQuoteUseCase interface {
-	Execute(ctx context.Context, ticker domain.Ticker) (*brapi.TickerQuoteResponse, error)
+	Execute(ctx context.Context, ticker domain.Ticker) (domain.Ticker, error)
 }
 
 type FetchTickerQuoteHandler struct {
@@ -33,11 +33,10 @@ func (h *FetchTickerQuoteHandler) FetchTickerQuote(c echo.Context) error {
 		return err
 	}
 
-	resp, err := h.uc.Execute(ctx, newTicker)
+	tickerData, err := h.uc.Execute(ctx, newTicker)
 	if err != nil {
-		// create a global error handler to automatic return the right status and body
 		return err
 	}
 
-	return c.JSON(http.StatusOK, resp)
+	return c.JSON(http.StatusOK, dtos.NewTickerDataResponse(tickerData))
 }

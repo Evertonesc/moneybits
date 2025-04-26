@@ -23,7 +23,7 @@ func NewBrapiAdapter() *BrapiAdapter {
 }
 
 func (ba *BrapiAdapter) FetchTickerQuote(ctx context.Context, ticker domain.Ticker) (*TickerQuoteResponse, error) {
-	url := fmt.Sprintf("/quote/%s", ticker.Code)
+	url := fmt.Sprintf("/quote/%s", ticker.Symbol)
 
 	headers := map[string]string{
 		rest.AuthorizationHeader: envs.EnvConfig.BrapiToken,
