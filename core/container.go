@@ -74,9 +74,3 @@ func (app *AppContainer) StartHTTPServer() {
 		log.Fatalf("http server closed: %s", err.Error())
 	}
 }
-
-// HTTPRouter provides the application HTTP router to all
-// components that need it.
-func (app *AppContainer) HTTPRouter() *echo.Router {
-	return app.HTTPServer.Router()
-}
